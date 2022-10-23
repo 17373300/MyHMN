@@ -1,13 +1,30 @@
-v1.0.0
+# v1.0.0
 
 model in /home/LAB/r-chaowenhan/lxy/MyHMN/save/
 
-best model 25.pt 26.pt
+============= epoch:25 =============
 
-in dev_property.json
+Train : loss 9.243409049206333
 
-precision 0.9316770186335402
+Train : Accuracy 0.8674545454545455
 
-recall 0.9316770186335402
+Dev : loss 1.3967430183394534
 
-f1 0.9316770186335402
+Dev : Accuracy 0.877665544332211
+
+# v1.0.1
+change sum ls to max ls
+
+model in /home/LAB/r-chaowenhan/lxy/MyHMN/save3/
+
+============= epoch:40 =============
+
+Train : loss 2.6713761751276532
+
+Train : Accuracy 0.95
+
+Dev : precision 0.8886641950342657, recall 0.8876669285153181, f1 0.88*
+
+Dev : loss 0.9840513314829877
+
+Dev : Accuracy 0.8877665544332211

@@ -37,6 +37,7 @@ class LawDataset(Dataset):
             self.data.append(i['fact'])
             self.label.append(i['charge'])
         self.dic = {5: 0, 32: 1, 40: 2, 48: 3, 68: 4, 78: 5}
+        print(len(self.data))
 
     def __len__(self):
         return len(self.data)
@@ -51,12 +52,12 @@ class LawDataset(Dataset):
             else:
                 a.append(self.tokenizer.convert_tokens_to_ids(i))
         if len(a) != 0:
-            token.append(a)
+            token.append([101] + a + [102])
 
         label_idx = self.label[idx]
 
         lenth = [len(i) for i in token]
         max_lenth = max(lenth)
-        token = [i + [0]*(max_lenth-len(i)) for i in token]
+        token = [i + [0] * (max_lenth - len(i)) for i in token]
 
         return token, self.dic[label_idx], len(token)

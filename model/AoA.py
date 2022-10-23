@@ -71,7 +71,7 @@ class AoA(nn.Module):
         # beta = torch.sum(M, 2, keepdim=True).expand_as(M)
 
         # (B, LS, L) -> (B, LS, 1)
-        sum_beta = torch.sum(beta, dim=2, keepdim=True)
+        sum_beta, _ = torch.max(beta, dim=2, keepdim=True)
         # (B) -> (B, 1) -> (B, 1, 1) -> (B, LS, 1)
         docs_len = target_lengths.unsqueeze(1).unsqueeze(2).expand_as(sum_beta)
         # (B, LS, 1)/(B, LS, 1) -> (B, LS, 1)
@@ -80,7 +80,7 @@ class AoA(nn.Module):
         squeeze_beta = average_beta.repeat((1, 1, target_input.size(-1)))
 
         # (B, LS, L) -> (B, 1, L)
-        sum_alpha = torch.sum(alpha, dim=1, keepdim=True)
+        sum_alpha, _ = torch.max(alpha, dim=1, keepdim=True)
         # (B) -> (B, 1) -> (B, 1, 1) -> (B, 1, L)
         query_len = source_lengths.unsqueeze(1).unsqueeze(2).expand_as(
             sum_alpha)
@@ -90,4 +90,4 @@ class AoA(nn.Module):
         squeeze_alpha = average_alpha.squeeze(1).unsqueeze(-1).repeat(
             (1, 1, source_input.size(1)))
 
-        return squeeze_alpha, squeeze_beta, M
+        return squeeze_alpha, squeeze_beta
